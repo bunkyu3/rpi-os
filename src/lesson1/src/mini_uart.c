@@ -4,7 +4,7 @@
 
 void uart_send(char c){
 	while(1){
-		if(get32(AUX_MU_LSR_REG)&0x20)
+		if(get32(AUX_MU_LSR_REG)&(1<<5))
 			break;
 	}
 	put32(AUX_MU_IO_REG, c);
@@ -12,7 +12,7 @@ void uart_send(char c){
 
 char uart_recv(void){
 	while(1){
-		if(get32(AUX_MU_LSR_REG)&0x01)
+		if(get32(AUX_MU_LSR_REG)&(1<<0))
 			break;
 	}
 	return(get32(AUX_MU_IO_REG)&0xFF);
