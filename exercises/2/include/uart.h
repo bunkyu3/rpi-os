@@ -1,5 +1,5 @@
-#ifndef _MINI_UART_H
-#define _MINI_UART_H
+#ifndef _UART_H
+#define _UART_H
 
 void uart_init(void);
 char uart_recv(void);
