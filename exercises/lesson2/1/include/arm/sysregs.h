@@ -22,10 +22,14 @@
 #define SCR_NS			(1<<0)	
 #define SCR_VALUE		(SCR_RESERVED|SCR_RW|SCR_NS)	
 
+// SPSR_EL2, Saved Program Status Register (EL2)
+#define SPSR2_MASK_ALL	(7<<6)
+#define SPSR2_EL1h		(5<<0)
+#define SPSR2_VALUE		(SPSR2_MASK_ALL|SPSR2_EL1h)
+
 // SPSR_EL3, Saved Program Status Register (EL3)
-#define SPSR_MASK_ALL	(7<<6)
-#define SPSR_EL1h		(5<<0)
-#define SPSR_EL2h		(9<<0)
-#define SPSR_VALUE		(SPSR_MASK_ALL|SPSR_EL2h)
+#define SPSR3_MASK_ALL	(7<<6)
+#define SPSR3_EL2h		(9<<0)
+#define SPSR3_VALUE		(SPSR3_MASK_ALL|SPSR3_EL2h)
 
 #endif

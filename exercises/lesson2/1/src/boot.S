@@ -23,20 +23,32 @@ master:
 	ldr		x0, =SCR_VALUE
 	msr		scr_el3, x0
 
-	ldr		x0, =SPSR_VALUE
+	ldr		x0, =SPSR3_VALUE
 	msr		spsr_el3, x0
 
-	adr		x0, el1_entry
+	adr		x0, el2_entry
 	msr		elr_el3, x0
 
 	eret
 
-el1_entry:
+el2_entry:
 	adr		x0, bss_begin
 	adr		x1, bss_end
 	sub		x1, x1, x0
 	bl		memzero
 
+	mov		sp, #LOW_MEMORY
+	bl		kernel_main
+
+	ldr		x0, =SPSR2_VALUE
+	msr		spsr_el2, x0
+
+	adr		x0, el1_entry
+	msr		elr_el2, x0
+
+	eret
+
+el1_entry:
 	mov		sp, #LOW_MEMORY
 	bl		kernel_main
 	b		proc_hang
