@@ -27,4 +27,8 @@
 #define SPSR_EL1h		(5<<0)
 #define SPSR_VALUE		(SPSR_MASK_ALL|SPSR_EL1h)
 
+// CPACR_EL1, Architectual Feature Access Control Register (EL1)
+#define CPACR_FP_SIMD_NO_TRAP	(3<<20)
+#define CPACR_VALUE				CPACR_FP_SIMD_NO_TRAP
+
 #endif
