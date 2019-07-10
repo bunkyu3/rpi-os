@@ -1,6 +1,7 @@
 #include "utils.h"
 #include "printf.h"
 #include "timer.h"
+#include "local_timer.h"
 #include "entry.h"
 #include "peripherals/irq.h"
 
@@ -28,6 +29,7 @@ const char *entry_error_messages[] = {
 
 void enable_interrupt_controller(){
 	put32(ENABLE_IRQS_1, SYSTEM_TIMER_IRQ_1);
+	put32(ENABLE_BASIC_IRQS, LOCAL_TIMER_IRQ);
 }
 
 void show_invalid_entry_message(int type, unsigned long esr, unsigned long address){
@@ -35,10 +37,13 @@ void show_invalid_entry_message(int type, unsigned long esr, unsigned long addre
 }
 
 void handle_irq(void){
-	unsigned int irq = get32(IRQ_PENDING_1);
+	unsigned int irq = get32(IRQ_BASIC_PENDING);
 	switch(irq){
 		case(SYSTEM_TIMER_IRQ_1):
 			handle_timer_irq();
+			break;
+		case(LOCAL_TIMER_IRQ):
+			handle_local_timer_irq();
 			break;
 		default:
 			printf("Unknown pending irq: %x\r\n", irq);
