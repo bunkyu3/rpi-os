@@ -1,4 +1,6 @@
 #include "utils.h"
+#include "printf.h"
+#include "irq.h"
 #include "peripherals/mini_uart.h"
 #include "peripherals/gpio.h"
 
@@ -42,8 +44,9 @@ void uart_init(void){
 
 	put32(AUX_ENABLES, 1);
 	put32(AUX_MU_CNTL_REG, 0);
-	put32(AUX_MU_IER_REG, 0);
+	put32(AUX_MU_IER_REG, 1);		// enable receive interrupt
 	put32(AUX_MU_LCR_REG, 3);
+	put32(AUX_MU_IIR_REG, (3<<1));	// clear tx/rx FIFO
 	put32(AUX_MU_MCR_REG, 0);
 	put32(AUX_MU_BAUD_REG, 270);
 	
@@ -53,4 +56,8 @@ void uart_init(void){
 // This function is needed for printf function
 void putc(void* p, char c){
 	uart_send(c);
+}
+
+void handle_mini_uart_irq(void){
+	uart_send(uart_recv());
 }
