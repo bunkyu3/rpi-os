@@ -40,6 +40,7 @@ void _schedule(void){
 		}
 	}
 	switch_to(task[next]);
+
 	preempt_enable();
 }
 
@@ -53,6 +54,11 @@ void switch_to(struct task_struct *next){
 		return;
 	struct task_struct *prev = current;
 	current = next;
+
+	printf("\r\n--Switch task from 0x%08x to 0x%08x--\r\n", prev, next);
+	printf("prev task sp is 0x%08x\r\n", prev->cpu_context.sp);
+	printf("next task sp is 0x%08x\r\n", next->cpu_context.sp);
+
 	cpu_switch_to(prev, next);
 }
 

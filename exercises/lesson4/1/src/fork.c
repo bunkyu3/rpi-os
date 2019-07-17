@@ -1,6 +1,7 @@
 #include "mm.h"
 #include "sched.h"
 #include "entry.h"
+#include "printf.h"
 
 int copy_process(unsigned long fn, unsigned long arg){
 	preempt_disable();
@@ -21,6 +22,11 @@ int copy_process(unsigned long fn, unsigned long arg){
 	p->cpu_context.sp = (unsigned long)p+THREAD_SIZE;
 	int pid = nr_tasks++;
 	task[pid] = p;
+
+	printf("\r\n-----Task%d created-----\r\n", pid);
+	printf("Struct task allocated at 0x%08x.\r\n", p);
+	printf("p->cpu_context.sp =  0x%08x. (sp)\r\n", p->cpu_context.sp);
+
 	preempt_enable();
 	return 0;
 }
