@@ -49,6 +49,9 @@ void schedule(void){
 }
 
 void switch_to(struct task_struct *next){
+
+	printf("\r\n-----task switch-----\r\n");
+
 	if(current == next)
 		return;
 	struct task_struct *prev = current;
