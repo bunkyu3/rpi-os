@@ -2,7 +2,7 @@
 #include "sched.h"
 #include "entry.h"
 
-int copy_process(unsigned long fn, unsigned long arg){
+int copy_process(unsigned long fn, unsigned long arg, long priority){
 	preempt_disable();
 	struct task_struct *p;
 
@@ -10,7 +10,7 @@ int copy_process(unsigned long fn, unsigned long arg){
 	if(!p){
 		return 1;
 	}
-	p->priority = current->priority;
+	p->priority = priority;
 	p->state = TASK_RUNNING;
 	p->counter = p->priority;
 	p->preempt_count = 1;
