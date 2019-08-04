@@ -24,6 +24,9 @@ const char *entry_error_messages[] = {
 	"IRQ_INVALID_EL0_32",
 	"FIQ_INVALID_EL0_32",
 	"ERROR_INVALID_EL0_32",
+
+	"SYNC_ERROR",
+	"SYSCALL_ERROR"
 };
 
 void enable_interrupt_controller(){

@@ -37,6 +37,6 @@ el1_entry:
 	sub		x1, x1, x0
 	bl		memzero
 
-	mov		sp, #(2*SECTION_SIZE)
+	mov		sp, #LOW_MEMORY
 	bl		kernel_main
 	b		proc_hang
